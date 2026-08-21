@@ -1,0 +1,12 @@
+<library path="gripper_capabilities">
+    <class type="capabilities2_runner::GripperCommandRunner" base_class_type="capabilities2_runner::RunnerBase">
+        <description>
+            A plugin that sends gripper position and effort goals
+        </description>
+    </class>
+    <class type="capabilities2_runner::GripperStateRunner" base_class_type="capabilities2_runner::RunnerBase">
+        <description>
+            A plugin that reads the current gripper articulation state from joint_states
+        </description>
+    </class>
+</library>

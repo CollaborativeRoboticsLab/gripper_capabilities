@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>gripper_capabilities</name>
+  <version>0.1.0</version>
+  <description>Provides capabilities2 runners for gripper command and state access.</description>
+
+  <maintainer email="kalanaratnayake95@gmail.com">Kalana Ratnayake</maintainer>
+  <maintainer email="kalana.ratnayakemudiyanselage@canberra.edu.au">Kalana Ratnayake</maintainer>
+
+  <author email="kalana.ratnayakemudiyanselage@canberra.edu.au">Kalana Ratnayake</author>
+  <author email="kalanaratnayake95@gmail.com">Kalana Ratnayake</author>
+  
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rclcpp_action</depend>
+  <depend>pluginlib</depend>
+  <depend>std_msgs</depend>
+  <depend>control_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>capabilities2_msgs</depend>
+  <depend>capabilities2_runner</depend>
+  <depend>capabilities2_events</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+
+    <capability_interface>
+      interfaces/GripperCommandRunner.yaml
+    </capability_interface>
+
+    <capability_provider>
+      providers/GripperCommandRunner.yaml
+    </capability_provider>
+
+    <capability_interface>
+      interfaces/GripperStateRunner.yaml
+    </capability_interface>
+
+    <capability_provider>
+      providers/GripperStateRunner.yaml
+    </capability_provider>
+
+  </export>
+</package>

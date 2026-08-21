@@ -1,0 +1,40 @@
+%YAML 1.1
+---
+name: GripperCommandRunner
+spec_type: provider
+spec_version: 1.2
+description: "The provider for gripper position and effort commands."
+implements: gripper_capabilities/GripperCommandRunner
+runner: capabilities2_runner::GripperCommandRunner
+
+definition:
+  command: "<Runner interface=gripper_capabilities/GripperCommandRunner provider=gripper_capabilities/GripperCommandRunner position='$position' max_effort='$max_effort' />"
+  configuration_parameters:
+    - name: position
+      type: double
+      semantic_key: gripper.command.position
+      description: "Target gripper opening requested through the public gripper action interface."
+    - name: max_effort
+      type: double
+      optional: true
+      default: 0.0
+      semantic_key: gripper.command.max_effort
+      description: "Requested gripper closing effort in newtons when supported by the active gripper driver."
+  runtime_parameters:
+    output:
+      - name: position
+        type: double
+        semantic_key: gripper.result.position
+        description: "Final gripper opening reported by the action result."
+      - name: effort
+        type: double
+        semantic_key: gripper.result.effort
+        description: "Final gripper effort reported by the action result."
+      - name: stalled
+        type: bool
+        semantic_key: gripper.result.stalled
+        description: "Whether the gripper stopped on effort before reaching the exact target."
+      - name: reached_goal
+        type: bool
+        semantic_key: gripper.result.reached_goal
+        description: "Whether the gripper reached the requested target position."
