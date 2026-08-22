@@ -16,7 +16,7 @@
 namespace capabilities2_runner
 {
 /**
- * @brief Read the current gripper articulation state from joint_states.
+ * @brief Read the current gripper articulation state from the backend-owned gripper joint-state topic.
  */
 class GripperStateRunner : public ThreadTriggerRunner
 {
@@ -73,9 +73,9 @@ public:
 
 protected:
   /**
-   * @brief Return selected joints from the latest gripper joint-state sample.
+  * @brief Return the latest gripper joint-state sample.
    *
-   * @param parameters Event parameters containing joint filters and timeout.
+  * @param parameters Event parameters containing timeout.
    * @param thread_id Thread identifier for the running trigger instance.
    */
   void execution(capabilities2_events::EventParameters parameters, const std::string & thread_id) override
@@ -84,17 +84,6 @@ protected:
     const std::string instance_id = ThreadTriggerRunner::instance_from_thread_id(thread_id);
 
     const double timeout_sec = std::any_cast<double>(parameters.get_value("timeout_sec", 2.0));
-    std::vector<std::string> requested_joint_names;
-    try
-    {
-      requested_joint_names = gripper_detail::any_to_string_vector(
-        parameters.get_value("joint_names", std::vector<std::string>{}));
-    }
-    catch (const runner_exception &)
-    {
-      requested_joint_names.clear();
-    }
-
     const auto deadline = std::chrono::steady_clock::now() + std::chrono::duration<double>(timeout_sec);
     while (std::chrono::steady_clock::now() < deadline)
     {
@@ -122,41 +111,9 @@ protected:
       latest_joint_state = *latest_joint_state_;
     }
 
-    std::vector<std::string> output_joint_names;
-    std::vector<double> output_joint_positions;
-    if (requested_joint_names.empty())
-    {
-      output_joint_names = latest_joint_state.name;
-      output_joint_positions.assign(latest_joint_state.position.begin(), latest_joint_state.position.end());
-    }
-    else
-    {
-      for (const auto & requested_name : requested_joint_names)
-      {
-        bool found = false;
-        for (size_t index = 0;
-          index < latest_joint_state.name.size() && index < latest_joint_state.position.size(); ++index)
-        {
-          if (latest_joint_state.name[index] == requested_name)
-          {
-            output_joint_names.push_back(latest_joint_state.name[index]);
-            output_joint_positions.push_back(latest_joint_state.position[index]);
-            found = true;
-            break;
-          }
-        }
-        if (!found)
-        {
-          status_message_ = "Requested gripper joint not found in latest joint state: " + requested_name;
-          emit_failed(bond_id, instance_id, param_on_failure());
-          return;
-        }
-      }
-    }
-
-    last_joint_names_ = output_joint_names;
-    last_joint_positions_ = output_joint_positions;
-    last_joint_count_ = static_cast<int>(output_joint_names.size());
+    last_joint_names_ = latest_joint_state.name;
+    last_joint_positions_.assign(latest_joint_state.position.begin(), latest_joint_state.position.end());
+    last_joint_count_ = static_cast<int>(last_joint_names_.size());
     emit_succeeded(bond_id, instance_id, param_on_success());
   }
 

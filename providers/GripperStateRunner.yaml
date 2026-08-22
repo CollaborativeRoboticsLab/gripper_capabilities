@@ -3,31 +3,28 @@
 name: GripperStateRunner
 spec_type: provider
 spec_version: 1.2
-description: "The provider for reading the current gripper articulation state from joint_states."
+description: "The provider for reading the current gripper articulation state from the 
+              backend-owned gripper joint-state topic."
 implements: gripper_capabilities/GripperStateRunner
 runner: capabilities2_runner::GripperStateRunner
 
 definition:
-  command: "<Runner interface=gripper_capabilities/GripperStateRunner provider=gripper_capabilities/GripperStateRunner joint_names='$joint_names' timeout_sec='$timeout_sec' />"
+  command: "<Runner interface=gripper_capabilities/GripperStateRunner provider=gripper_capabilities/GripperStateRunner timeout_sec='$timeout_sec' />"
   configuration_parameters:
-    - name: joint_names
-      type: string[]
-      optional: true
-      default: []
-      semantic_key: gripper.state.names
-      description: "Optional ordered gripper joint names to read. When omitted, all joints from the latest message are returned."
     - name: timeout_sec
       type: double
       optional: true
       default: 2.0
       semantic_key: gripper.state.timeout
-      description: "Maximum time in seconds to wait for a joint-state message."
+      description: "Maximum time in seconds to wait for a backend-published gripper 
+                    joint-state message."
   runtime_parameters:
     output:
       - name: joint_names
         type: string[]
         semantic_key: gripper.state.names
-        description: "Ordered joint names returned from the latest gripper state sample."
+        description: "Ordered backend-owned gripper joint names returned from the 
+                      latest gripper state sample."
       - name: joint_positions
         type: double[]
         semantic_key: gripper.state.positions
