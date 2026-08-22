@@ -8,14 +8,14 @@ implements: gripper_capabilities/GripperStateRunner
 runner: capabilities2_runner::GripperStateRunner
 
 definition:
-  command: "<Runner interface=gripper_capabilities/GripperStateRunner provider=gripper_capabilities/GripperStateRunner joint_names_csv='$joint_names_csv' timeout_sec='$timeout_sec' />"
+  command: "<Runner interface=gripper_capabilities/GripperStateRunner provider=gripper_capabilities/GripperStateRunner joint_names='$joint_names' timeout_sec='$timeout_sec' />"
   configuration_parameters:
-    - name: joint_names_csv
-      type: string
+    - name: joint_names
+      type: string[]
       optional: true
-      default: ""
+      default: []
       semantic_key: gripper.state.names
-      description: "Optional comma-separated ordered gripper joint names to read. When omitted, all joints from the latest message are returned."
+      description: "Optional ordered gripper joint names to read. When omitted, all joints from the latest message are returned."
     - name: timeout_sec
       type: double
       optional: true
@@ -24,14 +24,14 @@ definition:
       description: "Maximum time in seconds to wait for a joint-state message."
   runtime_parameters:
     output:
-      - name: joint_names_csv
-        type: string
+      - name: joint_names
+        type: string[]
         semantic_key: gripper.state.names
-        description: "Comma-separated ordered joint names returned from the latest gripper state sample."
-      - name: joint_positions_csv
-        type: string
+        description: "Ordered joint names returned from the latest gripper state sample."
+      - name: joint_positions
+        type: double[]
         semantic_key: gripper.state.positions
-        description: "Comma-separated ordered joint positions matching joint_names_csv."
+        description: "Ordered joint positions matching joint_names."
       - name: joint_count
         type: int
         semantic_key: gripper.state.count

@@ -1,44 +1,42 @@
 # Interface Information
 
-Following are the details of the interfaces provided by the Nav2 Capabilities package. A runner that intends to connect with one of these interfaces should support the input and ouput parameters described below.
+The gripper capabilities package provides one command interface and one state-reading interface.
 
-## RobotPoseRunner
+## GripperCommandRunner
 
-Input Parameters:
-
-| Parameter Name    | Type   | Description |
-| ---               | ---    | ---         |
-| map               | string | Frame id of the map |
-| odom              | string | Frame id of the odometry |
-| robot             | string | Frame id of the robot |
-| time_buffer       | double | TF lookup timeout in seconds before the runner reports failure |
-
-Output Parameters:
-
-| Parameter Name   | Type   | Description |
-| ---              | ---    | ---         |
-| x                | double | The x coordinate of the robot's pose |
-| y                | double | The y coordinate of the robot's pose |
-| z                | double | The z coordinate of the robot's pose |
-| qx               | double | The x coordinate of the robot's orientation in quaternion |
-| qy               | double | The y coordinate of the robot's orientation in quaternion |
-| qz               | double | The z coordinate of the robot's orientation in quaternion |
-| qw               | double | The w coordinate of the robot's orientation in quaternion |
-
-## WaypointRunner
+This runner sends a `control_msgs/action/GripperCommand` goal through the active gripper action server.
 
 Input Parameters:
 
-| Parameter Name   | Type   | Description |
-| ---              | ---    | ---         |
-| x                | double | The x coordinate of the robot's goal |
-| y                | double | The y coordinate of the robot's goal |
-| z                | double | The z coordinate of the robot's goal |
-| qx               | double | The x coordinate of the robot's goal orientation in quaternion |
-| qy               | double | The y coordinate of the robot's goal orientation in quaternion |
-| qz               | double | The z coordinate of the robot's goal orientation in quaternion |
-| qw               | double | The w coordinate of the robot's goal orientation in quaternion |
+| Parameter Name | Type | Description |
+| --- | --- | --- |
+| position | double | Target gripper opening for the active driver. |
+| max_effort | double | Optional effort limit used during the command. Defaults to `0.0`. |
 
 Output Parameters:
 
-None
+| Parameter Name | Type | Description |
+| --- | --- | --- |
+| position | double | Final gripper position reported by the action result. |
+| effort | double | Final gripper effort reported by the action result. |
+| stalled | bool | Whether the gripper stalled before reaching the exact target. |
+| reached_goal | bool | Whether the gripper reached the requested target position. |
+
+## GripperStateRunner
+
+This runner reads the current gripper articulation from `/joint_states` and emits vectors directly.
+
+Input Parameters:
+
+| Parameter Name | Type | Description |
+| --- | --- | --- |
+| joint_names | string[] | Optional ordered filter of gripper joints to return. When omitted, all joints from the latest sample are emitted. |
+| timeout_sec | double | Maximum time in seconds to wait for a joint-state message. Defaults to `2.0`. |
+
+Output Parameters:
+
+| Parameter Name | Type | Description |
+| --- | --- | --- |
+| joint_names | string[] | Ordered gripper joint names returned by the state reader. |
+| joint_positions | double[] | Ordered joint positions matching `joint_names`. |
+| joint_count | int | Number of joints emitted in the current sample. |

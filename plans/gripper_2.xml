@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Plan>
+    <Control type="sequential" name="gripper_effort_sequence">
+        <Runner
+            interface="gripper_capabilities/GripperCommandRunner"
+            provider="gripper_capabilities/GripperCommandRunner"
+            position="0.08" />
+        <Runner
+            interface="gripper_capabilities/GripperCommandRunner"
+            provider="gripper_capabilities/GripperCommandRunner"
+            position="0.0"
+            max_effort="40.0" />
+        <Runner
+            interface="gripper_capabilities/GripperCommandRunner"
+            provider="gripper_capabilities/GripperCommandRunner"
+            position="0.08" />
+    </Control>
+</Plan>
