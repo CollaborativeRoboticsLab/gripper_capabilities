@@ -14,12 +14,12 @@ def generate_launch_description():
 
     declare_plan_file_name = DeclareLaunchArgument(
         'filename',
-        default_value='navigation_1.xml',
+        default_value='gripper_1.xml',
         description='Name of the plan file'
     )
 
     # plan file folder
-    plan_file_path = PathJoinSubstitution([FindPackageShare('nav2_capabilities'), 'plans', plan_file_name ])
+    plan_file_path = PathJoinSubstitution([FindPackageShare('gripper_capabilities'), 'plans', plan_file_name ])
 
     # load config file
     fabric_config = PathJoinSubstitution([FindPackageShare('fabric_server'), 'config', 'fabric.yaml'])
