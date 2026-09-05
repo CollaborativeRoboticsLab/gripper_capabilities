@@ -11,11 +11,25 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     # get the plan name from launch arguments
     plan_file_name = LaunchConfiguration('filename')
+    start_experience_stack = LaunchConfiguration('start_experience_stack')
+    start_prompt_tools = LaunchConfiguration('start_prompt_tools')
 
     declare_plan_file_name = DeclareLaunchArgument(
         'filename',
         default_value='gripper_1.xml',
         description='Name of the plan file'
+    )
+
+    declare_start_experience_stack = DeclareLaunchArgument(
+        'start_experience_stack',
+        default_value='false',
+        description='Whether to start the experience and supervisor stack alongside fabric'
+    )
+
+    declare_start_prompt_tools = DeclareLaunchArgument(
+        'start_prompt_tools',
+        default_value='true',
+        description='Whether to start prompt_bridge for prompt-based plan generation; set false to disable it'
     )
 
     # plan file folder
@@ -32,11 +46,15 @@ def generate_launch_description():
         launch_arguments={
             'plan_file_path': plan_file_path,
             'fabric_config': fabric_config,
+            'start_experience_stack': start_experience_stack,
+            'start_prompt_tools': start_prompt_tools,
         }.items(),
     )
     
     return LaunchDescription([
         declare_plan_file_name,
+        declare_start_experience_stack,
+        declare_start_prompt_tools,
         fabric
     ])
 

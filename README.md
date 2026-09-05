@@ -27,4 +27,11 @@ colcon build --packages-up-to gripper_capabilities --symlink-install
 
 ## Runtime
 
-Start the capabilities server and the active gripper action server, then run one of the gripper plans through your normal capabilities2 launch flow.
+Start the active gripper action server, then run one of the gripper plans through the packaged wrapper launch.
+
+```bash
+source install/setup.bash
+ros2 launch gripper_capabilities system.launch.py filename:=gripper_1.xml
+```
+
+The wrapper starts Fabric, Capabilities2, and prompt tools automatically. Add `start_prompt_tools:=false` when you want to exclude `prompt_bridge`, and `start_experience_stack:=true` when you also want Experience and Supervisor in the same launch graph.
