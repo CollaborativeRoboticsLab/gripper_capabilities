@@ -89,8 +89,8 @@ namespace capabilities2_runner
     capabilities2_events::EventParameters param_on_success() override
     {
       capabilities2_events::EventParameters parameters;
-      parameters.set_value("position", last_position_, capabilities2_events::OptionType::DOUBLE);
-      parameters.set_value("effort", last_effort_, capabilities2_events::OptionType::DOUBLE);
+      parameters.set_value("reached_position", last_position_, capabilities2_events::OptionType::DOUBLE);
+      parameters.set_value("reached_effort", last_effort_, capabilities2_events::OptionType::DOUBLE);
       parameters.set_value("stalled", last_stalled_, capabilities2_events::OptionType::BOOL);
       parameters.set_value("reached_goal", last_reached_goal_, capabilities2_events::OptionType::BOOL);
       return parameters;

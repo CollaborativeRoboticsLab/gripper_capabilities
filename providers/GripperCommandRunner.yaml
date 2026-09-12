@@ -22,11 +22,11 @@ definition:
       description: "Requested gripper closing effort in newtons when supported by the active gripper driver."
   runtime_parameters:
     output:
-      - name: position
+      - name: reached_position
         type: double
         semantic_key: gripper.result.position
         description: "Final gripper opening reported by the action result."
-      - name: effort
+      - name: reached_effort
         type: double
         semantic_key: gripper.result.effort
         description: "Final gripper effort reported by the action result."
