@@ -13,13 +13,13 @@ definition:
     - name: position
       type: double
       semantic_key: gripper.command.position
-      description: "Target gripper opening requested through the public gripper action interface."
+      description: "Target gripper opening requested through the public gripper action interface. Opens at 0.08 and closes at 0.0."
     - name: max_effort
       type: double
       optional: true
       default: 0.0
       semantic_key: gripper.command.max_effort
-      description: "Requested gripper closing effort in newtons when supported by the active gripper driver."
+      description: "Requested gripper closing effort in newtons when supported by the active gripper driver. For normal operation, this can be 0.0"
   runtime_parameters:
     output:
       - name: reached_position
