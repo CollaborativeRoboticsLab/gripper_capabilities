@@ -1,6 +1,12 @@
 # Interface Information
 
-The gripper capabilities package provides one command interface and one state-reading interface.
+The gripper capabilities package provides a launch interface, a command interface, and a state-reading interface.
+
+## GripperLaunchRunner
+
+This runner starts the reusable gripper stack and waits for its command action to become available. Robot-specific capability packages can redefine the interface and provide their own launch configuration.
+
+Readiness action: `/gripper_command` (`control_msgs/action/GripperCommand`), with a 60-second timeout.
 
 ## GripperCommandRunner
 
@@ -24,7 +30,7 @@ Output Parameters:
 
 ## GripperStateRunner
 
-This runner reads the current gripper articulation from `/joint_states` and emits vectors directly.
+This runner reads the current gripper articulation from `/gripper_joint_states` and emits vectors directly.
 
 Input Parameters:
 

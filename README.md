@@ -1,13 +1,14 @@
 # gripper_capabilities
 
-Provides capabilities2 runners for gripper command and state access.
+Provides reusable capabilities2 runners for gripper launch, command, and state access.
 
 ## Supported runners
 
 | Runner | Description |
 | --- | --- |
+| `GripperLaunchRunner` | Starts the reusable soft two-finger gripper stack and waits for `/gripper_command`; robot-specific providers can override its configuration. |
 | `GripperCommandRunner` | Sends a `control_msgs/action/GripperCommand` goal with target `position` and optional `max_effort`. |
-| `GripperStateRunner` | Reads the current gripper articulation from `/joint_states` and emits `joint_names` plus `joint_positions` vectors. |
+| `GripperStateRunner` | Reads the current gripper articulation from `/gripper_joint_states` and emits `joint_names` plus `joint_positions` vectors. |
 
 For interface details, see [docs/interface.md](./docs/interface.md).
 
