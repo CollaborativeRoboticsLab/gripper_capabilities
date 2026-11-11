@@ -12,7 +12,14 @@ Provides reusable capabilities2 runners for gripper launch, command, and state a
 
 For interface details, see [docs/interface.md](./docs/interface.md).
 
-This package contains reusable runner implementations and generic interfaces/providers only. Robot-specific plans, configuration, and system launches belong in the corresponding robot capability package, such as `omron_gripper_capabilities`.
+This package contains reusable runner implementations and generic interfaces/providers only. Robot-specific plans, configuration, and system launches belong in the corresponding robot capability package.
+
+## Capability inheritance
+
+```mermaid
+flowchart LR
+	G["gripper_capabilities<br/>Generic gripper interfaces, launch, and runners"]
+```
 
 ## Build
 
