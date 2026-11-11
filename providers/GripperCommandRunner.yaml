@@ -6,6 +6,9 @@ spec_version: 1.2
 description: "The provider for gripper position and effort commands."
 implements: gripper_capabilities/GripperCommandRunner
 runner: capabilities2_runner::GripperCommandRunner
+depends_on:
+  "gripper_capabilities/GripperLaunchRunner":
+    provider: "gripper_capabilities/GripperLaunchRunner"
 
 definition:
   command: "<Runner interface=gripper_capabilities/GripperCommandRunner provider=gripper_capabilities/GripperCommandRunner position='$position' max_effort='$max_effort' />"

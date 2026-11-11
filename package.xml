@@ -23,6 +23,7 @@
   <depend>capabilities2_msgs</depend>
   <depend>capabilities2_runner</depend>
   <depend>capabilities2_events</depend>
+  <exec_depend>gripper_ros</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
@@ -44,6 +45,14 @@
 
     <capability_provider>
       providers/GripperStateRunner.yaml
+    </capability_provider>
+
+    <capability_interface>
+      interfaces/GripperLaunchRunner.yaml
+    </capability_interface>
+
+    <capability_provider>
+      providers/GripperLaunchRunner.yaml
     </capability_provider>
 
   </export>

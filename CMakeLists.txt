@@ -52,15 +52,7 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
-install(DIRECTORY interfaces
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(DIRECTORY providers
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(DIRECTORY launch
+install(DIRECTORY interfaces providers
   DESTINATION share/${PROJECT_NAME}
 )
 

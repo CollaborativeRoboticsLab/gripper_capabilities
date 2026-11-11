@@ -11,12 +11,7 @@ Provides capabilities2 runners for gripper command and state access.
 
 For interface details, see [docs/interface.md](./docs/interface.md).
 
-## Example Plans
-
-- [plans/gripper_1.xml](./plans/gripper_1.xml): open, close by position control, then open again.
-- [plans/gripper_2.xml](./plans/gripper_2.xml): open, close with explicit `max_effort`, then open again.
-
-The example plans use `position="0.08"` for open and `position="0.0"` for closed. Adjust those values if your active gripper driver uses a different travel range.
+This package contains reusable runner implementations and generic interfaces/providers only. Robot-specific plans, configuration, and system launches belong in the corresponding robot capability package, such as `omron_gripper_capabilities`.
 
 ## Build
 
@@ -24,14 +19,3 @@ The example plans use `position="0.08"` for open and `position="0.0"` for closed
 cd ~/colcon_ws
 colcon build --packages-up-to gripper_capabilities --symlink-install
 ```
-
-## Runtime
-
-Start the active gripper action server, then run one of the gripper plans through the packaged wrapper launch.
-
-```bash
-source install/setup.bash
-ros2 launch gripper_capabilities system.launch.py filename:=gripper_1.xml
-```
-
-The wrapper starts Fabric, Capabilities2, and prompt tools automatically. Add `start_prompt_tools:=false` when you want to exclude `prompt_bridge`, and `start_experience_stack:=true` when you also want Experience and Supervisor in the same launch graph.

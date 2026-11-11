@@ -1,0 +1,14 @@
+%YAML 1.1
+---
+name: GripperLaunchRunner
+spec_type: provider
+spec_version: 1.2
+description: "Launches the reusable soft two-finger gripper stack. Robot-specific providers can override its launch configuration."
+implements: gripper_capabilities/GripperLaunchRunner
+runner: gripper_ros/gripper_soft_two_fingers.launch.py
+definition:
+  launch_readiness:
+    action:
+      name: gripper_command
+      type: control_msgs/action/GripperCommand
+      timeout: 60.0

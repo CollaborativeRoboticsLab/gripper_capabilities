@@ -7,6 +7,9 @@ description: "The provider for reading the current gripper articulation state fr
               backend-owned gripper joint-state topic."
 implements: gripper_capabilities/GripperStateRunner
 runner: capabilities2_runner::GripperStateRunner
+depends_on:
+  "gripper_capabilities/GripperLaunchRunner":
+    provider: "gripper_capabilities/GripperLaunchRunner"
 
 definition:
   command: "<Runner interface=gripper_capabilities/GripperStateRunner provider=gripper_capabilities/GripperStateRunner timeout_sec='$timeout_sec' />"
