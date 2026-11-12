@@ -1,0 +1,13 @@
+%YAML 1.1
+---
+name: GripperStateRunner
+spec_version: 1.2
+spec_type: interface
+description: "This capability reads the current gripper articulation state from the 
+              backend-owned gripper joint-state topic and returns it as vectors."
+interface:
+  topics:
+    "/gripper_joint_states":
+      type: "sensor_msgs::msg::JointState"
+      description: "Backend-published gripper joint-state stream containing the configured 
+                    gripper articulation joints"

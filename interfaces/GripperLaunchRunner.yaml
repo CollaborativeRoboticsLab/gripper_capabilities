@@ -1,0 +1,11 @@
+%YAML 1.1
+---
+name: GripperLaunchRunner
+spec_type: interface
+spec_version: 1.2
+description: "Launches a reusable gripper stack and waits for its command action to become available."
+interface:
+  actions:
+    "/gripper_command":
+      type: "control_msgs::action::GripperCommand"
+      description: "Gripper action interface used to confirm the stack is ready."

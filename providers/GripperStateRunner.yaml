@@ -1,0 +1,38 @@
+%YAML 1.1
+---
+name: GripperStateRunner
+spec_type: provider
+spec_version: 1.2
+description: "The provider for reading the current gripper articulation state from the 
+              backend-owned gripper joint-state topic."
+implements: gripper_capabilities/GripperStateRunner
+runner: capabilities2_runner::GripperStateRunner
+depends_on:
+  "gripper_capabilities/GripperLaunchRunner":
+    provider: "gripper_capabilities/GripperLaunchRunner"
+
+definition:
+  command: "<Runner interface=gripper_capabilities/GripperStateRunner provider=gripper_capabilities/GripperStateRunner timeout_sec='$timeout_sec' />"
+  configuration_parameters:
+    - name: timeout_sec
+      type: double
+      optional: true
+      default: 2.0
+      semantic_key: gripper.state.timeout
+      description: "Maximum time in seconds to wait for a backend-published gripper 
+                    joint-state message."
+  runtime_parameters:
+    output:
+      - name: joint_names
+        type: string[]
+        semantic_key: gripper.state.names
+        description: "Ordered backend-owned gripper joint names returned from the 
+                      latest gripper state sample."
+      - name: joint_positions
+        type: double[]
+        semantic_key: gripper.state.positions
+        description: "Ordered joint positions matching joint_names."
+      - name: joint_count
+        type: int
+        semantic_key: gripper.state.count
+        description: "Number of joints returned in the current gripper state sample."

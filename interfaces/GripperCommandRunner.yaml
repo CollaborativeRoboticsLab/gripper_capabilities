@@ -1,0 +1,12 @@
+%YAML 1.1
+---
+name: GripperCommandRunner
+spec_version: 1.2
+spec_type: interface
+description: "This capability commands the gripper to a requested opening and effort by 
+              sending a GripperCommand action goal."
+interface:
+  actions:
+    "/gripper_command":
+      type: "control_msgs::action::GripperCommand"
+      description: "Gripper action interface exposed by the active gripper stack"
